@@ -10,11 +10,16 @@
 //https://l1pp6.csb.app/
 
 //HINT: You will need to study the classes in teh styles.css file to appy styling.
+
+
 import React from "react";
-import ReactDom from "react-dom";
+import { createRoot } from 'react-dom/client';
+//Use createRoot replaced ReactDom.render;
 import App from "./components/App";
-console.log("test");
-ReactDom.render(
-    <App/>,
-    document.getElementById("root")
+const container = document.getElementById("root");
+const root = createRoot(container);
+root.render(
+    <App/>
 );
+
+
