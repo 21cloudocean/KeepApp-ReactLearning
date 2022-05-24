@@ -8,7 +8,7 @@ import CreateArea from "./CreateArea";
 //Challenge. Render all the notes inside notes.js as a seperate Note
 //component.
 function App() {
-  const [items,setItems] = useState([{title:"New Title",content:"newcontent"}]);
+  const [items,setItems] = useState([]);
   function addItem(note){
     setItems(prevItems=>[...prevItems,note])
     console.log(items);

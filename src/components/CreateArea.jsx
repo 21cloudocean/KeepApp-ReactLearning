@@ -1,6 +1,7 @@
 import React, { useState }  from "react";
-import { isPropertySignature } from "typescript";
-
+import AddIcon from '@mui/icons-material/Add';
+import Fab from '@mui/material/Fab';
+import Zoom from '@mui/material/Zoom';
 //因为输入内容的过程在app中没有体现，没有任何一个component需要用它来render，所以放在这里
 //而存放note内容的array是用来render Note的，所以放在App.jsx中。
 function CreateArea(props) {
@@ -31,12 +32,21 @@ function CreateArea(props) {
 content:""
     })
    }
+   const[isClicked, setClicked]=useState(false);
+   function changeLayout(){
+    // setClicked((prevValue)=>!prevValue);
+    setClicked(true);
+   }
   return (
     <div>
-      <form>
-        <input onChange={updateNote} value={note.title}name="title" placeholder="Title" />
-        <textarea onChange={updateNote} value={note.content}name="content" placeholder="Take a note..." rows="3" />
-        <button 
+      <form className="create-note">
+      {isClicked
+      ? <input onChange={updateNote} value={note.title}name="title" placeholder="Title" />
+      :null}
+        <textarea onClick={changeLayout} onChange={updateNote} value={note.content}name="content" placeholder="Take a note..." 
+        rows={isClicked?"3":"1"}/> 
+        <Zoom in={isClicked?true:false}>
+        <Fab 
         onClick={submitNote}
         /*这就是所谓的“Pass the new note back to the App”。
         这里onClick不用直接包括props.onChecked（note），它调用的函数中有就可以了
@@ -50,10 +60,11 @@ content:""
         尝试在updateNote（event）和App.jsx中addItem（note）添加 （而且写成了note.preventDefault（）
         前者没有用处，后者报错
         */
-        >Add</button>
+        ><AddIcon/></Fab>
+        </Zoom>
       </form>
     </div>
   );
 }
-
+//Textarea这里原本想根据ischecked render一行的textarea和3行的textarea，但是因为改动只有rows这一项，因此只针对这一项就好了。
 export default CreateArea;
